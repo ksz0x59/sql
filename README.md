@@ -1,6 +1,6 @@
 # sql
 
-Some SQL practice
+Some SQL practice (SQLite and Dbeaver used in my case)
 
 Single Table Queries (select, distinct, where, or, and, between, in, null ) : 
 
