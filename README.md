@@ -2,65 +2,64 @@
 
 Some SQL practice (SQLite and Dbeaver used in my case)
 
-Single Table Queries (select, distinct, where, or, and, between, in, null ) : 
+# Single Table Queries (select, distinct, where, or, and, between, in, null ) : 
 
-Show the departments and their locations from dept table : 
+1. Show the departments and their locations from dept table : 
 
-select dname, loc from dept;
+	select dname, loc from dept;
 
-Show All job titles from employee table, but each job title should appear only once
+2. Show All job titles from employee table, but each job title should appear only once
 
-select distinct job from emp;
+	select distinct job from emp;
 
-Show only employees that have commision greater than salary 
+3. Show only employees that have commision greater than salary 
 
-select * from emp where comm > sal;
+	select * from emp where comm > sal;
 
-Show only people who are salesman and their salary is over 1600
+4. Show only people who are salesman and their salary is over 1600
 
-select *  from emp where job = 'SALESMAN' and sal >= 1600;
+	select *  from emp where job = 'SALESMAN' and sal >= 1600;
 
-Show people who are not salesman and their salary is less than 2500 
+5. Show people who are not salesman and their salary is less than 2500 
 
-select ename from emp where job != 'SALESMAN' and sal < 2500;
+	select ename from emp where job != 'SALESMAN' and sal < 2500;
 
-Show All Employees that are not managers and have salary greater than 2500 and also work in department no 20
+6. Show All Employees that are not managers and have salary greater than 2500 and also work in department no 20
 
-select *  from emp where job != 'MANAGER' and sal > 2500 and deptno = 20;
+	select *  from emp where job != 'MANAGER' and sal > 2500 and deptno = 20;
 
-Show names of those employees that are not managers nor salesman and have salary greater than or equal to 2000 
+7. Show names of those employees that are not managers nor salesman and have salary greater than or equal to 2000 
 
-select ename from emp where job != 'MANAGER' and job != 'SALESMAN' and sal >= 2000;
+	select ename from emp where job != 'MANAGER' and job != 'SALESMAN' and sal >= 2000;
 
-Show names and hiring dates of those employees that work in Dallas or Chicago 
+8. Show names and hiring dates of those employees that work in Dallas or Chicago 
 
-select ename, hiredate from emp where deptno = 20  or deptno = 30;
+	select ename, hiredate from emp where deptno = 20  or deptno = 30;
 
-select ename, hiredate from emp where deptno in (20, 30);
+	select ename, hiredate from emp where deptno in (20, 30);
 
-Show those employees whose salary is between 1000 and 2000 : 
+9. Show those employees whose salary is between 1000 and 2000 : 
 
-select * from emp where sal between 1000 and 2000;
+	select * from emp where sal between 1000 and 2000;
 
-Write a query that returns those employees that don't make any comission and have a salary greater than 1100 but less than 5000. Exclude those employees that have a salary equal to 3000. 
+10. Write a query that returns those employees that don't make any comission and have a salary greater than 1100 but less than 5000. Exclude those employees that have a salary equal to 3000. 
 
-select * from emp where (comm is null or comm = 0) and (sal > 1100 and sal < 5000 and sal != 3000);
+	select * from emp where (comm is null or comm = 0) and (sal > 1100 and sal < 5000 and sal != 3000);
 
-Return those employees that are salesman and that make either 300 dollars in commision or greater than 1000 dollars in commision. 
+11. Return those employees that are salesman and that make either 300 dollars in commision or greater than 1000 dollars in commision. 
 
-select * from emp where job = 'SALESMAN' and (comm = 300 or comm > 1000);
+	select * from emp where job = 'SALESMAN' and (comm = 300 or comm > 1000);
 
+12. Return employee record with highest salary : 
 
-Return employee record with highest salary : 
+	select * from emp where sal = (select max(sal) from emp);
 
-select * from emp where sal = (select max(sal) from emp);
+13. Return 2nd highest salary from emp table : 
 
-Return 2nd highest salary from emp table : 
+	select * from emp where sal = (select max(sal) from emp where sal NOT IN (select max(sal) from emp));
+	
 
-select * from emp where sal = (select max(sal) from emp where sal NOT IN (select max(sal) from emp));
-
-
-Grouping functions (min, max, avg, count), other stuff (group by, having) : 
+# Grouping functions (min, max, avg, count), other stuff (group by, having) : 
 
 1. Return max salaty from emp table : 
 
@@ -93,6 +92,7 @@ select max(sal), job from emp group by job
 7. Select minimum salary for each job title :
 
 select min(sal), job from emp group by job
+
 8. Select average salary for each job title :  
 
 select avg(sal), job from emp group by job
@@ -117,7 +117,7 @@ select count(*), job from emp where sal > 2000 group by job having count(*) = 2
 
 select deptno from emp group by deptno having count(*) > 3
 
-Multi Table Queries and Joins :
+# Multi Table Queries and Joins :
 
 1. Show those employees that work in Chicago.
 
@@ -130,8 +130,6 @@ select emp.ename, emp.job, emp.sal from emp, dept where emp.deptno = dept.deptno
 3. Show employee names with their department names 
 
 select emp.ename, dept.dname from dept INNER JOIN emp on emp.deptno = dept.deptno;
-
-
 
  4. Show employee names with their department names. It should show also departments that don't have employees in them.
 
